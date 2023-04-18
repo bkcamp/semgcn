@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division
 
 import numpy as np
+import pdb
 
 from .camera import world_to_camera, normalize_screen_coordinates
 
@@ -14,6 +15,7 @@ def create_2d_data(data_path, dataset):
             for cam_idx, kps in enumerate(keypoints[subject][action]):
                 # Normalize camera frame
                 cam = dataset.cameras()[subject][cam_idx]
+                breakpoint()
                 kps[..., :2] = normalize_screen_coordinates(kps[..., :2], w=cam['res_w'], h=cam['res_h'])
                 keypoints[subject][action][cam_idx] = kps
 

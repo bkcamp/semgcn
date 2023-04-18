@@ -63,7 +63,7 @@ if __name__ == '__main__':
                     continue  # Discard corrupted video
 
                 with h5py.File(f) as hf:
-                    positions = hf['3D_positions'].value.reshape(32, 3, -1).transpose(2, 0, 1)
+                    positions = hf['3D_positions'][()].reshape(32, 3, -1).transpose(2, 0, 1)
                     positions /= 1000  # Meters instead of millimeters
                     output[subject][action] = positions.astype('float32')
 
@@ -118,7 +118,7 @@ if __name__ == '__main__':
         for action in dataset[subject].keys():
             anim = dataset[subject][action]
 
-            positions_2d = []
+            positions_2d = [()]
             for cam in anim['cameras']:
                 pos_3d = world_to_camera(anim['positions'], R=cam['orientation'], t=cam['translation'])
                 pos_2d = wrap(project_to_2d, True, pos_3d, cam['intrinsic'])
