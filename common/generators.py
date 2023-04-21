@@ -3,6 +3,7 @@ from __future__ import print_function, absolute_import
 import numpy as np
 import torch
 from torch.utils.data import Dataset
+from functools import reduce
 
 
 class PoseGenerator(Dataset):

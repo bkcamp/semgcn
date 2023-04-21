@@ -103,7 +103,7 @@ def main(args):
         ckpt = torch.load(ckpt_path)
         start_epoch = ckpt['epoch']
         error_best = ckpt['error']
-        model_pos.load_state_dict(ckpt['state_dict'])
+        model_pos.load_state_dict(ckpt['state_dict'], strict = False)
         print("==> Loaded checkpoint (Epoch: {} | Error: {})".format(start_epoch, error_best))
     else:
         raise RuntimeError("==> No checkpoint found at '{}'".format(ckpt_path))

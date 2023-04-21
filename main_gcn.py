@@ -74,7 +74,6 @@ def main(args):
     dataset_path = path.join('data', 'data_3d_' + args.dataset + '.npz')
     if args.dataset == 'h36m':
         from common.h36m_dataset import Human36mDataset, TRAIN_SUBJECTS, TEST_SUBJECTS
-        print(Human36mDataset(dataset_path))
         dataset = Human36mDataset(dataset_path)
         subjects_train = TRAIN_SUBJECTS
         subjects_test = TEST_SUBJECTS
@@ -119,7 +118,7 @@ def main(args):
             error_best = ckpt['error']
             glob_step = ckpt['step']
             lr_now = ckpt['lr']
-            model_pos.load_state_dict(ckpt['state_dict'])
+            model_pos.load_state_dict(ckpt['state_dict'], strict = False)
             optimizer.load_state_dict(ckpt['optimizer'])
             print("==> Loaded checkpoint (Epoch: {} | Error: {})".format(start_epoch, error_best))
 
@@ -133,7 +132,7 @@ def main(args):
         error_best = None
         glob_step = 0
         lr_now = args.lr
-        ckpt_dir_path = path.join(args.checkpoint, datetime.datetime.now().isoformat())
+        ckpt_dir_path = path.join(args.checkpoint, 'SiLU')
 
         if not path.exists(ckpt_dir_path):
             os.makedirs(ckpt_dir_path)

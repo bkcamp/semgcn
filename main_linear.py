@@ -110,7 +110,7 @@ def main(args):
             error_best = ckpt['error']
             glob_step = ckpt['step']
             lr_now = ckpt['lr']
-            model_pos.load_state_dict(ckpt['state_dict'])
+            model_pos.load_state_dict(ckpt['state_dict'], strict = False)
             optimizer.load_state_dict(ckpt['optimizer'])
             print("==> Loaded checkpoint (Epoch: {} | Error: {})".format(start_epoch, error_best))
 

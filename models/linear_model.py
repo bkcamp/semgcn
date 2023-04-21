@@ -13,7 +13,7 @@ class Linear(nn.Module):
         super(Linear, self).__init__()
         self.l_size = linear_size
 
-        self.relu = nn.ReLU(inplace=True)
+        self.silu = nn.SiLU(inplace=True)
         self.dropout = nn.Dropout(p_dropout)
 
         self.w1 = nn.Linear(self.l_size, self.l_size)
@@ -25,12 +25,12 @@ class Linear(nn.Module):
     def forward(self, x):
         y = self.w1(x)
         y = self.batch_norm1(y)
-        y = self.relu(y)
+        y = self.silu(y)
         y = self.dropout(y)
 
         y = self.w2(y)
         y = self.batch_norm2(y)
-        y = self.relu(y)
+        y = self.silu(y)
         y = self.dropout(y)
 
         out = x + y
@@ -63,14 +63,14 @@ class LinearModel(nn.Module):
         # post processing
         self.w2 = nn.Linear(self.linear_size, self.output_size)
 
-        self.relu = nn.ReLU(inplace=True)
+        self.silu = nn.ReLU(inplace=True)
         self.dropout = nn.Dropout(self.p_dropout)
 
     def forward(self, x):
         # pre-processing
         y = self.w1(x)
         y = self.batch_norm1(y)
-        y = self.relu(y)
+        y = self.silu(y)
         y = self.dropout(y)
 
         # linear layers

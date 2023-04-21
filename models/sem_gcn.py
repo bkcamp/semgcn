@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import torch.nn as nn
 from models.sem_graph_conv import SemGraphConv
 from models.graph_non_local import GraphNonLocal
+from functools import reduce
 
 
 class _GraphConv(nn.Module):
@@ -11,7 +12,7 @@ class _GraphConv(nn.Module):
 
         self.gconv = SemGraphConv(input_dim, output_dim, adj)
         self.bn = nn.BatchNorm1d(output_dim)
-        self.relu = nn.ReLU()
+        self.silu = nn.SiLU()
 
         if p_dropout is not None:
             self.dropout = nn.Dropout(p_dropout)
@@ -22,9 +23,9 @@ class _GraphConv(nn.Module):
         x = self.gconv(x).transpose(1, 2)
         x = self.bn(x).transpose(1, 2)
         if self.dropout is not None:
-            x = self.dropout(self.relu(x))
+            x = self.dropout(self.silu(x))
 
-        x = self.relu(x)
+        x = self.silu(x)
         return x
 
 
