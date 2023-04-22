@@ -1,5 +1,7 @@
 # Semantic Graph Convolutional Networks for 3D Human Pose Regression (CVPR 2019)
 
+https://drive.google.com/file/d/1Ac-gUXAg-6UiwThJVaw6yw2151Bot3L1/view?usp=sharing
+
 This repository holds the Pytorch implementation of [Semantic Graph Convolutional Networks for 3D Human Pose Regression](https://arxiv.org/abs/1904.03345) by Long Zhao, Xi Peng, Yu Tian, Mubbasir Kapadia and Dimitris N. Metaxas. If you find our code useful in your research, please consider citing:
 
 ```
